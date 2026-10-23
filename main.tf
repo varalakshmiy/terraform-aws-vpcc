@@ -68,17 +68,16 @@ resource "aws_subnet" "database" {
   )
 }
 
-resource "aws_db_subnet_group" "roboshop" {
-  name       = "${local.common_name}"
-  subnet_ids = aws_subnet.database[*].id
-
+ resource "aws_db_subnet_group" "roboshop" {
+   name       = "${local.common_name}"
+   subnet_ids = aws_subnet.database[*].id
   tags = merge(
-    local.common_tags,
-    {
-      Name = "${local.common_name}"
-    }
-  )
-}
+     local.common_tags,
+     {
+       Name = "${local.common_name}"
+     }
+   )
+ }
 
 resource "aws_route_table" "public" {
   vpc_id = aws_vpc.main.id
